@@ -1,7 +1,10 @@
+#open firewall temporarily
+sudo iptables -P OUTPUT ACCEPT
+
 # k3s install and developer association
-sudo wget -O /home/developer/k3s https://github.com/rancher/k3s/releases/download/v0.10.0/k3s
-sudo chmod +x /home/developer/k3s
-sudo chown developer /home/developer/k3s
+wget -O /home/developer/k3s https://github.com/rancher/k3s/releases/download/v0.10.0/k3s
+chmod +x /home/developer/k3s
+chown developer /home/developer/k3s
 
 # Make sure BashRC profile exists
 FILE=/home/developer/.bashrc
@@ -15,3 +18,6 @@ else
     # k3s add to path
     sudo echo "export PATH=/home/developer:$PATH" >> /home/developer/.bashrc
 fi
+
+#shutdown outbound firewall
+sudo iptables -P OUTPUT REJECT
